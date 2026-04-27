@@ -19,7 +19,9 @@ import main  # noqa: E402 — import after patching below
 
 @pytest.fixture(autouse=True)
 def fake_redis(monkeypatch):
-    """Replace the real Redis connection with an in-process fake for every test."""
+    """
+    Replace the real Redis connection with an in-process fake for every test.
+    """
     server = fakeredis.FakeServer()
     fake_r = fakeredis.FakeRedis(server=server, decode_responses=True)
     monkeypatch.setattr(main, "r", fake_r)
@@ -46,7 +48,9 @@ def test_create_job_returns_job_id(client):
 
 # ── Test 2 ──────────────────────────────────────────────────────────────────
 def test_create_job_enqueues_and_sets_status(client, fake_redis):
-    """POST /jobs must push the job_id onto the 'jobs' list and set status=queued."""
+    """
+    POST /jobs must push the job_id onto the 'jobs' list and set status=queued.
+    """
     response = client.post("/jobs")
     job_id = response.json()["job_id"]
 

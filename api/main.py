@@ -18,11 +18,14 @@ r = redis.Redis(
 
 @app.get("/health")
 def health():
-    """Health-check endpoint required by Docker HEALTHCHECK and orchestration."""
+    """
+    Health-check endpoint required by Docker HEALTHCHECK and orchestration.
+    """
     try:
         r.ping()
     except redis.exceptions.ConnectionError as exc:
-        raise HTTPException(status_code=503, detail="Redis unavailable") from exc
+        raise HTTPException(status_code=503, 
+                            detail="Redis unavailable") from exc
     return {"status": "ok"}
 
 
