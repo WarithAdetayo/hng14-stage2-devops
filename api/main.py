@@ -24,7 +24,7 @@ def health():
     try:
         r.ping()
     except redis.exceptions.ConnectionError as exc:
-        raise HTTPException(status_code=503, 
+        raise HTTPException(status_code=503,
                             detail="Redis unavailable") from exc
     return {"status": "ok"}
 
